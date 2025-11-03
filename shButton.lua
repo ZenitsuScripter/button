@@ -1,4 +1,4 @@
-task.delay(5, function()
+task.delay(30, function()
     local CoreGui = game:GetService("CoreGui")
     local UserInputService = game:GetService("UserInputService")
 
@@ -52,15 +52,15 @@ task.delay(5, function()
         end
     end)
 
-    -- Minimizar / restaurar hub
+    -- Minimizar / restaurar hub pelo tamanho
     local minimized = false
-    local visiblePos = Window.Main.Position
-    local hiddenPos = UDim2.new(2, 0, visiblePos.Y.Scale, visiblePos.Y.Offset)
+    local originalSize = Window.Size or UDim2.fromOffset(500, 350) -- tamanho original
+    local minimizedSize = UDim2.new(0, 0, 0, 0)
 
     Button.MouseButton1Click:Connect(function()
         minimized = not minimized
-        Window.Main:TweenPosition(
-            minimized and hiddenPos or visiblePos,
+        Window.Main:TweenSize(
+            minimized and minimizedSize or originalSize,
             Enum.EasingDirection.Out,
             Enum.EasingStyle.Sine,
             0.4,
