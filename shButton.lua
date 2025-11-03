@@ -1,4 +1,4 @@
-task.delay(30, function()
+task.delay(1, function()
     local CoreGui = game:GetService("CoreGui")
     local UserInputService = game:GetService("UserInputService")
 
