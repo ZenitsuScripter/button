@@ -1,24 +1,6 @@
-task.delay(10, function()
+task.delay(5, function()
     local CoreGui = game:GetService("CoreGui")
     local UserInputService = game:GetService("UserInputService")
-
-    -- Procura o Hub principal
-    local HubGUI
-    for _, gui in pairs(CoreGui:GetChildren()) do
-        if gui:IsA("ScreenGui") and gui.Name == "ScreenGui" then
-            HubGUI = gui
-            break
-        end
-    end
-
-    if not HubGUI then
-        warn("Hub ScreenGui não encontrado!")
-        return
-    end
-
-    if CoreGui:FindFirstChild("HubToggle") then
-        return
-    end
 
     local ToggleGui = Instance.new("ScreenGui")
     ToggleGui.Name = "HubToggle"
@@ -30,12 +12,12 @@ task.delay(10, function()
     Button.Size = UDim2.new(0, 60, 0, 60)
     Button.Position = UDim2.new(0, 20, 0, 200)
     Button.BackgroundTransparency = 1
-    Button.Image = "rbxassetid://12232793816" -- mesma imagem do seu
+    Button.Image = "rbxassetid://12232793816"
     Button.ScaleType = Enum.ScaleType.Fit
     Button.BorderSizePixel = 0
     Button.Parent = ToggleGui
 
-    -- mover botão (arrastar)
+    -- Arrastar botão
     local dragging = false
     local dragInput, dragStart, startPos
 
@@ -70,20 +52,14 @@ task.delay(10, function()
         end
     end)
 
-    -- animação de esconder/mostrar o Hub
-    local MainFrame = HubGUI:FindFirstChildWhichIsA("Frame", true)
-    if not MainFrame then
-        warn("MainFrame do Hub não encontrado!")
-        return
-    end
-
+    -- Minimizar / restaurar hub
     local minimized = false
-    local visiblePos = MainFrame.Position
+    local visiblePos = Window.Main.Position
     local hiddenPos = UDim2.new(2, 0, visiblePos.Y.Scale, visiblePos.Y.Offset)
 
     Button.MouseButton1Click:Connect(function()
         minimized = not minimized
-        MainFrame:TweenPosition(
+        Window.Main:TweenPosition(
             minimized and hiddenPos or visiblePos,
             Enum.EasingDirection.Out,
             Enum.EasingStyle.Sine,
