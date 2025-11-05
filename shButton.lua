@@ -1,5 +1,5 @@
 -- Delay para garantir que o hub carregou
-task.delay(5, function()
+task.delay(15, function()
     local CoreGui = game:GetService("CoreGui")
     local UserInputService = game:GetService("UserInputService")
 
